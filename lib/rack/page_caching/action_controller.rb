@@ -9,7 +9,7 @@ module Rack
           options = actions.extract_options!
           gzip_level = options.fetch(:gzip, Zlib::BEST_COMPRESSION)
           gzip_level = Rack::PageCaching::Utils.gzip_level(gzip_level)
-          after_filter({ only: actions }.merge(options)) do |c|
+          after_action({ only: actions }.merge(options)) do |c|
             c.request.env['rack.page_caching.perform_caching'] = true
             c.request.env['rack.page_caching.compression'] = gzip_level
           end
